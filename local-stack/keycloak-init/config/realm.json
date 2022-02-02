@@ -1,0 +1,162 @@
+{
+  "enabled": true,
+  "realm": "bank",
+  "clients": [
+    {
+      "id": "accounts-web-app",
+      "clientId": "accounts-web-app",
+      "name": "accounts-web-app",
+      "description": "Account Angular webApp",
+      "enabled": true,
+      "publicClient": true,
+      "implicitFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "fullScopeAllowed": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "accounts-web-app-secret",
+      "redirectUris": [
+        "http://accounts.bank.lukgaw.com/",
+        "http://localhost:4200/"
+      ],
+      "webOrigins": [
+        "http://accounts.bank.lukgaw.com",
+        "http://localhost:4200/"
+      ]
+    },
+    {
+      "id": "accounts-service",
+      "clientId": "accounts-service",
+      "name": "accounts-service",
+      "description": "Account Resource Service",
+      "enabled": true,
+      "publicClient": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "bearerOnly": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "accounts-web-app-secret",
+      "redirectUris": [
+        "http://accounts.bank.lukgaw.com/"
+      ],
+      "webOrigins": [
+        "http://accounts.bank.lukgaw.com",
+        "https://accounts.bank.lukgaw.com"
+      ]
+    }
+  ],
+  "scopeMappings": [
+    {
+      "client": "accounts-web-app",
+      "roles": [
+        "ACCOUNTS_CUSTOMER",
+        "ACCOUNTS_ADMIN"
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "name": "accounts-group",
+      "path": "/accounts-group",
+      "attributes": {},
+      "realmRoles": [],
+      "clientRoles": {},
+      "subGroups": [
+        {
+          "name": "accounts-admin",
+          "path": "/accounts-group/accounts-admin",
+          "attributes": {},
+          "realmRoles": [
+            "ACCOUNTS_ADMIN"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        },
+        {
+          "name": "accounts-customer",
+          "path": "/accounts-group/accounts-customer",
+          "attributes": {},
+          "realmRoles": [
+            "ACCOUNTS_CUSTOMER"
+          ],
+          "clientRoles": {},
+          "subGroups": []
+        }
+      ]
+    }
+  ],
+  "users" : [ {
+    "id" : "b2941e2c-8e22-4753-b52f-ecf6e496baf7",
+    "createdTimestamp" : 1643741638384,
+    "username" : "barbra.streisand",
+    "enabled" : true,
+    "emailVerified" : true,
+    "firstName" : "Barbra",
+    "lastName" : "Streisand",
+    "email" : "barbra.streisand@bank.lukgaw.com",
+    "credentials" : [ {
+      "id" : "411e4b0a-f5bc-443d-be44-612c226adbae",
+      "type" : "password",
+      "createdDate" : 1643741648447,
+      "secretData" : "{\"value\":\"gJmh0MEdgudcDziaG5aTDeLtpW6OLHIUrf42GV3hxABMfiIZ2ghXLjMSDQVY6GIhj8h2WhuokZ0utIfZnF4fjg==\",\"salt\":\"zIj8zEh80Wat0zejc9JYfw==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "groups" : [ "/accounts-group/accounts-customer" ]
+  }, {
+    "id" : "9c2921ce-f173-4992-b1e6-076c4abd1ca7",
+    "createdTimestamp" : 1643741719909,
+    "username" : "chuck.norris",
+    "enabled" : true,
+    "emailVerified" : true,
+    "firstName" : "Chuck",
+    "lastName" : "Norris",
+    "email" : "chuck.norris@bank.lukgaw.com",
+    "credentials" : [ {
+      "id" : "70ef39e4-b658-4c21-9ac1-9b5e75fe4cb0",
+      "type" : "password",
+      "createdDate" : 1643741725369,
+      "secretData" : "{\"value\":\"ZekxNKiVJ1/NvRrKwsLldFsNSQCCp76U9uf5qaj0mzkqb4wx+K3Aco+5esZQvpH2MYuwSbyhUeheTMxlwX0Uvw==\",\"salt\":\"E1vJjQepUHt5lHg0uFGzIA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "groups" : [ "/accounts-group/accounts-customer" ]
+  },
+    {
+      "id": "71a55a16-2b71-4a58-aefa-983f92393e06",
+      "createdTimestamp": 1643741271152,
+      "username": "luk",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Luk",
+      "lastName": "Gaw",
+      "email": "luk@bank.lukgaw.com",
+      "credentials": [
+        {
+          "id": "72786dc2-8421-45aa-a51d-0af81bda9a33",
+          "type": "password",
+          "createdDate": 1643741287891,
+          "secretData": "{\"value\":\"PtGoFmFOFsXX2ogyl50gvdCZAS8KP/CPn9KWrmiaRN0VFotIJ56BhMhJVYzW10Zhu/7uJRlrmj4/kyyBjdqK4A==\",\"salt\":\"UDa5QNU+BskPVKBncoYOhw==\",\"additionalParameters\":{}}",
+          "credentialData": "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+        }
+      ],
+      "groups" : [ "/accounts-group/accounts-admin" ]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "ACCOUNTS_ADMIN",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "ceae7eae-3f74-4c76-83eb-569f8ce0a016",
+        "attributes": {}
+      },
+      {
+        "name": "ACCOUNTS_CUSTOMER",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "ceae7eae-3f74-4c76-83eb-569f8ce0a016",
+        "attributes": {}
+      }
+    ]
+  }
+}
+

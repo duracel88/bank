@@ -1,0 +1,14 @@
+spring:
+  r2dbc:
+    username: accounts-svc
+    password: password
+    url: r2dbc:h2:mem:///accounts
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth.bank.lukgaw.com/auth/realms/bank
+
+server:
+  port: 8081

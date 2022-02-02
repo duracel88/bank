@@ -45,5 +45,15 @@ services:
     volumes:
       - ./keycloak-init/config/:/config
 
+  accounts-db:
+    image: postgres:13
+    hostname: ${ACCOUNTS_DB_HOSTNAME}
+    environment:
+      POSTGRES_USER: ${ACCOUNTS_DB_POSTGRES_USER}
+      POSTGRES_PASSWORD: ${ACCOUNTS_DB_POSTGRES_PASSWORD}
+      POSTGRES_DB: ${ACCOUNTS_DB_POSTGRES_DB}
+    volumes:
+      - accounts-db-volume:/var/lib/postgresql/data
+
 volumes:
   accounts-db-volume:

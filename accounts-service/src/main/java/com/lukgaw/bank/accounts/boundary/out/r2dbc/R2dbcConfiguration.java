@@ -19,4 +19,5 @@ public class R2dbcConfiguration {
         return R2dbcCustomConversions.of(DialectResolver.getDialect(connectionFactory), converters);
     }
 
+
 }

@@ -1,1 +1,4 @@
-
+jwt:
+  realmAccessRolesMap:
+    ACCOUNTS_CUSTOMER: CUSTOMER
+    ACCOUNTS_ADMIN: ADMIN

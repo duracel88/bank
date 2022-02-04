@@ -1,19 +1,25 @@
 package com.lukgaw.bank.accounts.boundary.out.http.tx;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.domain.Page;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.List;
 import java.util.UUID;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 public class AccountTransactionsDTO {
     private UUID accountId;
-    private Page<TransactionDTO> transactions;
+    private List<TransactionDTO> transactions;
 
+    @NoArgsConstructor
+    @AllArgsConstructor
     @Builder
     @Getter
     public static class TransactionDTO {

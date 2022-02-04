@@ -11,7 +11,6 @@ import com.lukgaw.bank.accounts.domain.accounts.model.TransactionPreview;
 import com.lukgaw.bank.accounts.domain.accounts.port.AccountRepository;
 import com.lukgaw.bank.accounts.domain.common.Money;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import reactor.core.publisher.Mono;
 
 import java.util.Comparator;
@@ -29,7 +28,6 @@ public class AccountRepositoryAdapter implements AccountRepository {
         var lastAccountTransactionsMono = transactionsService
                 .getLastAccountTransactions(accountId.getId(), lastTransactionCount)
                 .map(AccountTransactionsDTO::getTransactions)
-                .map(Page::toList)
                 .defaultIfEmpty(List.of());
 
         return Mono.zip(accountDetailsMono, lastAccountTransactionsMono)

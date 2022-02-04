@@ -15,7 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.PageImpl;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -73,14 +72,14 @@ class AccountRepositoryAdapterTest {
         Mockito.when(transactionsService.getLastAccountTransactions(eq(CHUCK_ACCOUNT_ID.getId()), anyInt()))
                 .thenReturn(Mono.just(AccountTransactionsDTO.builder()
                         .accountId(CHUCK_ACCOUNT_ID.getId())
-                        .transactions(new PageImpl<>(List.of(TransactionDTO.builder()
+                        .transactions(List.of(TransactionDTO.builder()
                                 .id(UUID.randomUUID())
                                 .orderId(1L)
                                 .isDeposit(true)
                                 .currency(Currency.getInstance("PLN"))
                                 .transactionAmount(BigDecimal.TEN)
                                 .amountAfter(BigDecimal.TEN)
-                                .build())))
+                                .build()))
                         .build()));
         accountRepositoryAdapter.findAccountById(CHUCK_ACCOUNT_ID, 50)
                 .as(StepVerifier::create)
@@ -100,7 +99,7 @@ class AccountRepositoryAdapterTest {
         Mockito.when(transactionsService.getLastAccountTransactions(eq(CHUCK_ACCOUNT_ID.getId()), anyInt()))
                 .thenReturn(Mono.just(AccountTransactionsDTO.builder()
                         .accountId(CHUCK_ACCOUNT_ID.getId())
-                        .transactions(new PageImpl<>(List.of(
+                        .transactions(List.of(
                                 TransactionDTO.builder()
                                         .id(UUID.randomUUID())
                                         .orderId(1L)
@@ -116,7 +115,7 @@ class AccountRepositoryAdapterTest {
                                         .currency(Currency.getInstance("PLN"))
                                         .transactionAmount(BigDecimal.TEN)
                                         .amountAfter(BigDecimal.valueOf(20.D))
-                                        .build())))
+                                        .build()))
                         .build()));
         accountRepositoryAdapter.findAccountById(CHUCK_ACCOUNT_ID, 50)
                 .as(StepVerifier::create)

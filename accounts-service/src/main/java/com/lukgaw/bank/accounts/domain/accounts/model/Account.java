@@ -36,4 +36,14 @@ public class Account {
         this.transactions = List.copyOf(transactions);
     }
 
+    @Builder(builderClassName = "FirstDepositAccountBuilder", builderMethodName = "firstDepositAccountBuilder")
+    private Account(@NonNull AccountId accountId,
+                    @NonNull AccountOwner ownerDetails,
+                    @NonNull Money deposit) {
+        this.accountId = accountId;
+        this.ownerDetails = ownerDetails;
+        this.balance = deposit;
+        this.transactions = List.of();
+    }
+
 }

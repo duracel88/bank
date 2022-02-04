@@ -40,7 +40,7 @@ class AccountRepositoryAdapterTest {
         @Bean
         public AccountRepositoryAdapter accountRepositoryAdapter(AccountDetailsReactiveCrudRepository reactiveCrudRepository,
                                                                  TransactionsService transactionsService) {
-            return new AccountRepositoryAdapter(reactiveCrudRepository, transactionsService);
+            return new AccountRepositoryAdapter(reactiveCrudRepository, transactionsService, UUID::randomUUID);
         }
     }
 

@@ -59,7 +59,6 @@ public class AccountTransactionRecordRepositoryAdapter implements AccountTransac
     @Override
     public Mono<AccountTransactionRecord> findLastAccountTransactionRecord(AccountId accountId) {
         return findAccountTransactionRecords(accountId, PageRequest.of(0, 1))
-                .take(1)
-                .single();
+                .singleOrEmpty();
     }
 }

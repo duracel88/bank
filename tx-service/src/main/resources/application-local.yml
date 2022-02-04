@@ -1,0 +1,8 @@
+spring:
+  r2dbc:
+    username: tx-svc
+    password: password
+    url: r2dbc:h2:mem:///transactions
+
+server:
+  port: 8082

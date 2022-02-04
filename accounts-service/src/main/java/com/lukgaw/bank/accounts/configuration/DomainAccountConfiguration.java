@@ -7,12 +7,14 @@ import com.lukgaw.bank.accounts.domain.accounts.port.AccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.UUID;
+
 @Configuration
 public class DomainAccountConfiguration {
 
     @Bean
     public AccountRepository accountRepository(AccountDetailsReactiveCrudRepository accountDetailsRepository,
                                                TransactionsService transactionsService) {
-        return new AccountRepositoryAdapter(accountDetailsRepository, transactionsService);
+        return new AccountRepositoryAdapter(accountDetailsRepository, transactionsService, UUID::randomUUID);
     }
 }

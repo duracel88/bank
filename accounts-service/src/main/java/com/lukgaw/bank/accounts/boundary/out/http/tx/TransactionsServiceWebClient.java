@@ -17,4 +17,11 @@ public class TransactionsServiceWebClient implements TransactionsService {
         return webClient.get().uri("/transactions/{accountId}", Map.of("accountId", accountId))
                 .exchangeToMono(res -> res.bodyToMono(AccountTransactionsDTO.class));
     }
+
+    @Override
+    public Mono<DepositResponseDTO> makeDeposit(DepositRequestDTO request) {
+        return webClient.post().uri("/deposit")
+                .bodyValue(request)
+                .exchangeToMono(res -> res.bodyToMono(DepositResponseDTO.class));
+    }
 }

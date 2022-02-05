@@ -52,7 +52,7 @@ services:
     environment:
       - BASE_PATH=/api
       - TX_SERVICE_URL=http://tx-service:8080
-      - JWT_ISSUER_URI=http://bank.lukgaw.com/auth/realms/bank
+      - JWK_URL=http://keycloak:8080/auth/realms/bank/protocol/openid-connect/certs
 
     labels:
       - traefik.enable=true

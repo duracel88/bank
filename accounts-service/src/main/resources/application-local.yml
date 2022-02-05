@@ -5,7 +5,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://auth.bank.lukgaw.com/auth/realms/bank
+          issuer-uri: http://bank.lukgaw.com/auth/realms/bank
 
 services:
   tx-service:

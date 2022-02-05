@@ -13,7 +13,7 @@
       "directAccessGrantsEnabled": false,
       "fullScopeAllowed": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "accounts-web-app-secret",
+      "secret": "cede2a1f-3643-42ca-b6b2-bd26d11ed11a",
       "redirectUris": [
         "http://localhost:4200/"
       ],

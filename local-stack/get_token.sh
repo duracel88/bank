@@ -1,4 +1,4 @@
-curl -X POST 'http://bank.lukgaw.com/auth/realms/bank/protocol/openid-connect/token' \
+curl -X POST 'http://localhost/auth/realms/bank/protocol/openid-connect/token' \
 	-H 'Content-Type: application/x-www-form-urlencoded'  \
 	--data-urlencode 'client_id=accounts-api' \
 	--data-urlencode 'grant_type=password' \

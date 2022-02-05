@@ -5,7 +5,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://auth.bank.lukgaw.com/auth/realms/bank
+          jwk-set-uri: http://bank.lukgaw.com/auth/realms/bank/protocol/openid-connect/certs
 
 services:
   tx-service:

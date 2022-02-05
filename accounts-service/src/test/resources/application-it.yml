@@ -1,5 +1,0 @@
-spring:
-  r2dbc:
-    username: accounts-svc
-    password: password
-    url: r2dbc:h2:mem:///accounts

@@ -4,12 +4,10 @@ import com.lukgaw.bank.accounts.boundary.in.http.ex.NotAuthorizedResourceAccessE
 import com.lukgaw.bank.accounts.boundary.in.http.ex.ResourceNotFoundException;
 import com.lukgaw.bank.accounts.domain.accounts.model.AccountId;
 import com.lukgaw.bank.accounts.domain.accounts.model.AccountOwner;
-import com.lukgaw.bank.accounts.domain.accounts.model.CustomerId;
 import com.lukgaw.bank.accounts.domain.accounts.port.AccountRepository;
 import com.lukgaw.bank.accounts.domain.accounts.port.OpenAccountPort;
 import com.lukgaw.bank.accounts.domain.common.Money;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -60,11 +58,8 @@ public class AccountsResource {
     @PostMapping
     @PreAuthorize("hasAnyRole('ROLE_CUSTOMER')")
     public Mono<ResponseEntity<?>> createAccount(@RequestBody @Valid OpenAccountRequestDTO request,
-                                                @AuthenticationPrincipal JwtAuthenticationToken auth) {
-        if (!getCustomerId(auth).getId().equals(request.getCustomerId())) {
-            return Mono.just(ResponseEntity.status(HttpStatus.FORBIDDEN).build());
-        }
-        AccountOwner owner = AccountOwner.of(CustomerId.of(request.getCustomerId()), request.getFirstName(), request.getLastName());
+                                                 @AuthenticationPrincipal JwtAuthenticationToken auth) {
+        AccountOwner owner = AccountOwner.of(getCustomerId(auth), request.getFirstName(), request.getLastName());
         Currency currency = Currency.getInstance(request.getCurrency());
         if (request.getFirstDepositAmount() == null) {
             return openAccountPort.openAccount(owner, currency)

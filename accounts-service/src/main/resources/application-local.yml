@@ -1,18 +1,15 @@
 spring:
-  r2dbc:
-    username: accounts-svc
-    password: password
-    url: r2dbc:h2:mem:///accounts
-
+  webflux:
+    base-path: /api
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://auth.bank.lukgaw.com/auth/realms/bank
 
-server:
-  port: 8081
-
 services:
   tx-service:
     host: http://localhost:8082
+
+server:
+  port: 8081

@@ -13,13 +13,11 @@
       "directAccessGrantsEnabled": false,
       "fullScopeAllowed": false,
       "clientAuthenticatorType": "client-secret",
-      "secret": "accounts-web-app-secret",
+      "secret": "cede2a1f-3643-42ca-b6b2-bd26d11ed11a",
       "redirectUris": [
-        "http://accounts.bank.lukgaw.com/",
         "http://localhost:4200/"
       ],
       "webOrigins": [
-        "http://accounts.bank.lukgaw.com",
         "http://localhost:4200/"
       ]
     },
@@ -35,16 +33,37 @@
       "bearerOnly": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "accounts-web-app-secret",
-      "redirectUris": [
-        "http://accounts.bank.lukgaw.com/"
-      ],
-      "webOrigins": [
-        "http://accounts.bank.lukgaw.com",
-        "https://accounts.bank.lukgaw.com"
-      ]
+      "redirectUris": [],
+      "webOrigins": []
+    },
+    {
+      "id": "accounts-api",
+      "clientId": "accounts-api",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "cede2a1f-3643-42ca-b6b2-bd26d11ed11a",
+      "redirectUris": [],
+      "webOrigins": [],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": false,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "authorizationServicesEnabled": true,
+      "publicClient": false,
+      "fullScopeAllowed": false
     }
   ],
   "scopeMappings": [
+    {
+      "client": "accounts-api",
+      "roles": [
+        "ACCOUNTS_CUSTOMER",
+        "ACCOUNTS_ADMIN"
+      ]
+    },
     {
       "client": "accounts-web-app",
       "roles": [

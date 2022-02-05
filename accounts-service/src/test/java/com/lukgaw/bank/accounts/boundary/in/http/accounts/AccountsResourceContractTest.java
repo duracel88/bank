@@ -7,6 +7,7 @@ import com.lukgaw.bank.accounts.domain.accounts.model.AccountId;
 import com.lukgaw.bank.accounts.domain.accounts.model.AccountOwner;
 import com.lukgaw.bank.accounts.domain.accounts.model.TransactionPreview;
 import com.lukgaw.bank.accounts.domain.accounts.port.AccountRepository;
+import com.lukgaw.bank.accounts.domain.accounts.port.OpenAccountPort;
 import com.lukgaw.bank.accounts.domain.common.Money;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -27,6 +28,9 @@ class AccountsResourceContractTest extends ContractTest {
 
     @MockBean
     AccountRepository accountRepository;
+
+    @MockBean
+    OpenAccountPort openAccountPort;
 
     @Autowired
     WebTestClient web;

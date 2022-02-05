@@ -25,7 +25,7 @@ services:
       KEYCLOAK_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
     labels:
       - traefik.enable=true
-      - traefik.http.routers.keycloak.rule=Host(`${KEYCLOAK_DOMAIN}`)
+      - traefik.http.routers.keycloak.rule=PathPrefix(`/auth`)
       - traefik.http.routers.keycloak.entrypoints=web
       - traefik.http.routers.keycloak.service=keycloak
       - traefik.http.services.keycloak.loadbalancer.server.port=8080
@@ -45,15 +45,23 @@ services:
     volumes:
       - ./keycloak-init/config/:/config
 
-  accounts-db:
-    image: postgres:13
-    hostname: ${ACCOUNTS_DB_HOSTNAME}
+  accounts-service:
+    image: lukgaw/accounts-service
+    build:
+      context: ../accounts-service
     environment:
-      POSTGRES_USER: ${ACCOUNTS_DB_POSTGRES_USER}
-      POSTGRES_PASSWORD: ${ACCOUNTS_DB_POSTGRES_PASSWORD}
-      POSTGRES_DB: ${ACCOUNTS_DB_POSTGRES_DB}
-    volumes:
-      - accounts-db-volume:/var/lib/postgresql/data
+      - BASE_PATH=/api
+      - TX_SERVICE_URL=http://tx-service:8080
+      - JWT_ISSUER_URI=http://auth.bank.lukgaw.com/auth/realms/bank
 
-volumes:
-  accounts-db-volume:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.accounts-service.rule=PathPrefix(`/api`)
+      - traefik.http.routers.accounts-service.entrypoints=web
+      - traefik.http.routers.accounts-service.service=accounts-service
+      - traefik.http.services.accounts-service.loadbalancer.server.port=8080
+
+  tx-service:
+    image: lukgaw/tx-service
+    build:
+      context: ../tx-service

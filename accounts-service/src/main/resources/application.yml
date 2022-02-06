@@ -20,3 +20,7 @@ spring:
 services:
   tx-service:
     host: ${TX_SERVICE_URL}
+    retry:
+      backoff:
+        maxAttempts: 3
+        backoffSeconds: 1

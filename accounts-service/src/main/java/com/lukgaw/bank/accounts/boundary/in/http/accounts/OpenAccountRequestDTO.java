@@ -4,15 +4,20 @@ import lombok.Getter;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Getter
 public class OpenAccountRequestDTO {
-    @NotNull private String firstName;
-    @NotNull private String lastName;
-    private BigDecimal firstDepositAmount;
+    @NotNull @Size(min = 1, max = 32)
+    String firstName;
+    @NotNull @Size(min = 1, max = 32)
+    String lastName;
+    @Positive
+    BigDecimal firstDepositAmount;
 
     @NotNull
     @Pattern(regexp = "[A-Z]{3}")
-    private String currency;
+    String currency;
 }

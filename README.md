@@ -1,6 +1,6 @@
 ### Bank app
 #### Local test stack
-![diagram](https://github.com/[username]/[reponame]/blob/[branch]/bank-diagram.0.1.jpg?raw=true)
+![diagram](https://github.com/duracel88/bank/blob/master/bank-diagram.0.1.jpg?raw=true)
 
 go here https://github.com/duracel88/bank/tree/master/local-stack
 #### Run in IDE

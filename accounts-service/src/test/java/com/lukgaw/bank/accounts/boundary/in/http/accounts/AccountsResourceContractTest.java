@@ -17,6 +17,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.List;
 import java.util.UUID;
 
@@ -145,5 +147,105 @@ class AccountsResourceContractTest extends ContractTest {
                 .expectStatus()
                 .isNotFound();
     }
+
+    @Test
+    public void on_post_should_return_200_role_is_customer(){
+        Mockito.when(openAccountPort.openAccount(Mockito.any(), Mockito.any(Money.class)))
+                .thenReturn(Mono.just(OpenAccountPort.OpenAccountResult.of(AccountId.of(People.SuseCustomer.ID), true)));
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", BigDecimal.valueOf(20.20), "PLN"))
+                .exchange()
+                .expectStatus()
+                .isOk();
+    }
+
+    @Test
+    public void on_post_should_return_200_role_is_customer_no_initial_deposit_is_made(){
+        Mockito.when(openAccountPort.openAccount(Mockito.any(), Mockito.any(Money.class)))
+                .thenReturn(Mono.just(OpenAccountPort.OpenAccountResult.of(AccountId.of(People.SuseCustomer.ID), false)));
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", BigDecimal.valueOf(20.20), "PLN"))
+                .exchange()
+                .expectStatus()
+                .isOk();
+    }
+
+    @Test
+    public void on_post_should_return_400_when_first_name_is_missing(){
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest(null, "Last", BigDecimal.valueOf(20.20), "PLN"))
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+    }
+
+    @Test
+    public void on_post_should_return_400_when_last_name_is_missing(){
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", null, BigDecimal.valueOf(20.20), "PLN"))
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+    }
+
+    @Test
+    public void on_post_should_return_400_when_currency_is_missing(){
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", BigDecimal.valueOf(20.20), null))
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+    }
+
+    @Test
+    public void on_post_should_return_400_when_currency_is_too_long(){
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", BigDecimal.valueOf(20.20), "PLNN"))
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+    }
+
+    @Test
+    public void on_post_should_return_400_when_currency_is_too_short(){
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", BigDecimal.valueOf(20.20), "P"))
+                .exchange()
+                .expectStatus()
+                .isBadRequest();
+    }
+
+    @Test
+    public void on_post_should_return_200_when_deposit_is_not_provided(){
+        Mockito.when(openAccountPort.openAccount(Mockito.any(), Mockito.any(Currency.class)))
+                .thenReturn(Mono.just(AccountId.of(People.SuseCustomer.ID)));
+        web.mutateWith(People.SuseCustomer.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", null, "PLN"))
+                .exchange()
+                .expectStatus()
+                .isOk();
+    }
+
+    @Test
+    public void on_post_should_return_403_when_role_is_admin(){
+        Mockito.when(openAccountPort.openAccount(Mockito.any(), Mockito.any(Currency.class)))
+                .thenReturn(Mono.just(AccountId.of(People.SuseCustomer.ID)));
+        web.mutateWith(People.DannyAdmin.JWT_MUTATOR)
+                .post().uri("/accounts")
+                .bodyValue(OpenAccountRequestDTOFixture.createRequest("First", "Last", null, "PLN"))
+                .exchange()
+                .expectStatus()
+                .isForbidden();
+    }
+
+
 
 }
